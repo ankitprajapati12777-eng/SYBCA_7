@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlust Travels | Explore the World</title>
+    <style>
+        /* --- Global Reset & Animations --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: #333;
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- Navigation --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff5a5f;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ff5a5f;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            height: 75vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 15px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 22px;
+            margin-bottom: 30px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .btn {
+            background-color: #ff5a5f;
+            color: #fff;
+            padding: 12px 35px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(255, 90, 95, 0.4);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1.4s ease-out;
+        }
+
+        .btn:hover {
+            background-color: #e0484d;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 90, 95, 0.6);
+        }
+
+        /* --- Main Sections --- */
+        section {
+            padding: 80px 10%;
+            text-align: center;
+        }
+
+        section h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #222;
+        }
+
+        section h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: #ff5a5f;
+            margin: 12px auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- Destinations Cards (Hover Zoom Animation) --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            cursor: pointer;
+        }
+
+        .card-img-wrapper {
+            overflow: hidden;
+            position: relative;
+            height: 220px;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        /* Zoom and lift animation combined */
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .card:hover img {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 25px;
+            text-align: left;
+        }
+
+        .card-content h3 {
+            margin-bottom: 10px;
+            font-size: 22px;
+            color: #222;
+        }
+
+        .card-content p {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            color: #ff5a5f;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        /* --- Animated Stats Section --- */
+        .stats-section {
+            background-color: #24292e;
+            color: #fff;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 60px 10%;
+        }
+
+        .stat-item {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 40px;
+            color: #ff5a5f;
+            margin-bottom: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        /* --- Contact Form Section --- */
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #ff5a5f;
+            outline: none;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #111;
+            color: #aaa;
+            text-align: center;
+            padding: 30px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Wanderlust</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#destinations">Destinations</a></li>
+            <li><a href="#stats">Our Scale</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero" id="home">
+        <h1>Let's Discover The World Together</h1>
+        <p>Planning unforgettable adventures for over 5 exciting years</p>
+        <a href="#destinations" class="btn">Explore Packages</a>
+    </header>
+
+    <section id="destinations">
+        <h2>Trending Destinations</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500&q=80" alt="Maldives">
+                </div>
+                <div class="card-content">
+                    <h3>Maldives Paradise</h3>
+                    <p>Relax beside clear sapphire waters, white sands, and iconic luxury ocean villas.</p>
+                    <div class="price">$1,200 / person</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=500&q=80" alt="Kyoto">
+                </div>
+                <div class="card-content">
+                    <h3>Kyoto Culture</h3>
+                    <p>Immerse yourself into majestic shrines, serene bamboo forests, and rich heritage.</p>
+                    <div class="price">$850 / person</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=500&q=80" alt="Paris">
+                </div>
+                <div class="card-content">
+                    <h3>Romantic Paris</h3>
+                    <p>Stroll through artistic streets, global historic landmarks, and premier dining spots.</p>
+                    <div class="price">$999 / person</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-section" id="stats">
+        <div class="stat-item">
+            <h3>5+</h3>
+            <p>Years of Journey</p>
+        </div>
+        <div class="stat-item">
+            <h3>15K+</h3>
+            <p>Happy Travelers</p>
+        </div>
+        <div class="stat-item">
+            <h3>250+</h3>
+            <p>Exotic Destinations</p>
+        </div>
+        <div class="stat-item">
+            <h3>4.9★</h3>
+            <p>Customer Rating</p>
+        </div>
+    </div>
+
+    <section id="contact" style="background-color: #f0f2f5;">
+        <h2>Plan Your Escape</h2>
+        <div class="contact-container">
+            <form onsubmit="alert('Inquiry submitted! Our travel agent will connect with you shortly.'); return false;">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="destination">Where do you want to go?</label>
+                    <input type="text" id="destination" required placeholder="e.g. Switzerland, Bali...">
+                </div>
+                <button type="submit" class="btn" style="width: 100%; border-radius: 8px; margin-top: 10px;">Send Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Wanderlust Travels. Your journey, our passion.</p>
+    </footer>
+
+</body>
+</html>
